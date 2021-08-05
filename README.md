@@ -1,6 +1,8 @@
 # 概述
 
-​    AWS合作伙伴数据分析动手训练营，面向AWS中国区合作伙伴，赋能合作伙伴架构师通过使用AWS的数据分析服务，进行结构化和非结构化数据的摄取、存储、转换、分析。为合作伙伴的解决方案架构师提供了一天的动手实验，包括了Amazon Kinesis，AWS Glue，Amazon Athena和Amazon SageMake等服务。详情可参看：http://gcr-bigdata-demo-prod.s3-website-ap-northeast-1.amazonaws.com/0-introduction.html 。
+​    AWS合作伙伴数据分析动手训练营，面向AWS中国区合作伙伴，赋能合作伙伴架构师通过使用AWS的数据分析服务，进行结构化和非结构化数据的摄取、存储、转换、分析。为合作伙伴的解决方案架构师提供了一天的动手实验，包括了Amazon Kinesis，AWS Glue，Amazon Athena和Amazon SageMake等服务。
+
+​    详情可参看：[AWS合作伙伴数据分析动手训练营](http://gcr-bigdata-demo-prod.s3-website-ap-northeast-1.amazonaws.com/0-introduction.html )。
 
 ​    本代码仓库包含了动手训练营动手的相关代码。
 
