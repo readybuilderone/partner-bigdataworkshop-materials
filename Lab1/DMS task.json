@@ -1,0 +1,322 @@
+{
+    "Tables": [
+        {
+            "TablePath": "data/",
+            "TableColumnsTotal": "4",
+            "TableOwner": "data",
+            "TableName": "tags",
+            "TableColumns": [
+                {
+                    "ColumnName": "userId",
+                    "ColumnIsPk": "true",
+                    "ColumnNullable": "false",
+                    "ColumnType": "STRING",
+                    "ColumnLength": "20"
+                },
+                {
+                    "ColumnName": "movieId",
+                    "ColumnNullable": "false",
+                    "ColumnType": "STRING",
+                    "ColumnLength": "20"
+                },
+                {
+                    "ColumnName": "tag",
+                    "ColumnType": "STRING",
+                    "ColumnLength": "255"
+                },
+                {
+                    "ColumnName": "timestamp",
+                    "ColumnType": "STRING",
+                    "ColumnLength": "20"
+                }
+            ]
+        },
+        {
+            "TablePath": "data/",
+            "TableColumnsTotal": "4",
+            "TableOwner": "data",
+            "TableName": "ratings",
+            "TableColumns": [
+                {
+                    "ColumnName": "userId",
+                    "ColumnIsPk": "true",
+                    "ColumnNullable": "false",
+                    "ColumnType": "STRING",
+                    "ColumnLength": "20"
+                },
+                {
+                    "ColumnName": "movieId",
+                    "ColumnNullable": "false",
+                    "ColumnType": "STRING",
+                    "ColumnLength": "20"
+                },
+                {
+                    "ColumnName": "rating",
+                    "ColumnType": "STRING",
+                    "ColumnLength": "5"
+                },
+                {
+                    "ColumnName": "timestamp",
+                    "ColumnType": "STRING",
+                    "ColumnLength": "20"
+                }
+            ]
+        },
+        {
+            "TablePath": "data/",
+            "TableColumnsTotal": "3",
+            "TableOwner": "data",
+            "TableName": "links",
+            "TableColumns": [
+                {
+                    "ColumnName": "movieId",
+                    "ColumnIsPk": "true",
+                    "ColumnNullable": "false",
+                    "ColumnType": "STRING",
+                    "ColumnLength": "20"
+                },
+                {
+                    "ColumnName": "imdbId",
+                    "ColumnType": "STRING",
+                    "ColumnLength": "20"
+                },
+                {
+                    "ColumnName": "tmdbId",
+                    "ColumnType": "STRING",
+                    "ColumnLength": "20"
+                }
+            ]
+        },
+        {
+            "TablePath": "data/",
+            "TableColumnsTotal": "3",
+            "TableOwner": "data",
+            "TableName": "movies",
+            "TableColumns": [
+                {
+                    "ColumnName": "movieId",
+                    "ColumnIsPk": "true",
+                    "ColumnNullable": "false",
+                    "ColumnType": "STRING",
+                    "ColumnLength": "20"
+                },
+                {
+                    "ColumnName": "title",
+                    "ColumnType": "STRING",
+                    "ColumnLength": "255"
+                },
+                {
+                    "ColumnName": "genres",
+                    "ColumnType": "STRING",
+                    "ColumnLength": "255"
+                }
+            ]
+        }
+    ],
+    "TableCount": "4"
+}
+----------------
+
+task TableMappings
+
+
+{
+    "rules": [
+        {
+            "rule-type": "selection",
+            "rule-id": "1",
+            "rule-action": "include",
+            "object-locator": {
+                "schema-name": "data",
+                "table-name": "%"
+            },
+            "rule-name": "1"
+        },
+        {
+            "rule-action": "map-record-to-record",
+            "object-locator": {
+                "schema-name": "data",
+                "table-name": "tags"
+            },
+            "target-table-name": "tags_t",
+            "rule-name": "2",
+            "rule-type": "object-mapping",
+            "rule-id": "2",
+            "mapping-parameters": {
+                "attribute-mappings": [
+                    {
+                        "attribute-type": "scalar",
+                        "attribute-sub-type": "string",
+                        "target-attribute-name": "Id",
+                        "value": "${userId}X${movieId}"
+                    },
+                    {
+                        "attribute-type": "scalar",
+                        "attribute-sub-type": "string",
+                        "target-attribute-name": "userId",
+                        "value": "${userId}"
+                    },
+                    {
+                        "attribute-type": "scalar",
+                        "attribute-sub-type": "string",
+                        "target-attribute-name": "movieId",
+                        "value": "${movieId}"
+                    },
+                    {
+                        "attribute-type": "scalar",
+                        "attribute-sub-type": "string",
+                        "target-attribute-name": "tags",
+                        "value": "${tags}"
+                    },
+                    {
+                        "attribute-type": "scalar",
+                        "attribute-sub-type": "string",
+                        "target-attribute-name": "timestamp_c",
+                        "value": "${timestamp}"
+                    }
+                ],
+                "exclude-columns": [
+                    "userId",
+                    "movieId",
+                    "tags",
+                    "timestamp"
+                ],
+                "partition-key-name": "Id",
+                "sort-key-name": "movieId"
+            }
+        },
+        {
+            "rule-action": "map-record-to-record",
+            "object-locator": {
+                "schema-name": "data",
+                "table-name": "ratings"
+            },
+            "target-table-name": "ratings_t",
+            "rule-name": "3",
+            "rule-type": "object-mapping",
+            "rule-id": "3",
+            "mapping-parameters": {
+                "attribute-mappings": [
+                    {
+                        "attribute-type": "scalar",
+                        "attribute-sub-type": "string",
+                        "target-attribute-name": "Id",
+                        "value": "${userId}X${movieId}"
+                    },
+                    {
+                        "attribute-type": "scalar",
+                        "attribute-sub-type": "string",
+                        "target-attribute-name": "userId",
+                        "value": "${userId}"
+                    },
+                    {
+                        "attribute-type": "scalar",
+                        "attribute-sub-type": "string",
+                        "target-attribute-name": "movieId",
+                        "value": "${movieId}"
+                    },
+                    {
+                        "attribute-type": "scalar",
+                        "attribute-sub-type": "string",
+                        "target-attribute-name": "rating",
+                        "value": "${rating}"
+                    },
+                    {
+                        "attribute-type": "scalar",
+                        "attribute-sub-type": "string",
+                        "target-attribute-name": "timestamp_c",
+                        "value": "${timestamp}"
+                    }
+                ],
+                "exclude-columns": [
+                    "userId",
+                    "movieId",
+                    "rating",
+                    "timestamp"
+                ],
+                "partition-key-name": "Id",
+                "sort-key-name": "movieId"
+            }
+        },
+        {
+            "rule-action": "map-record-to-record",
+            "object-locator": {
+                "schema-name": "data",
+                "table-name": "movies"
+            },
+            "target-table-name": "movies_t",
+            "rule-name": "4",
+            "rule-type": "object-mapping",
+            "rule-id": "4",
+            "mapping-parameters": {
+                "attribute-mappings": [
+                    {
+                        "attribute-type": "scalar",
+                        "attribute-sub-type": "string",
+                        "target-attribute-name": "movieId",
+                        "value": "${movieId}"
+                    },
+                    {
+                        "attribute-type": "scalar",
+                        "attribute-sub-type": "string",
+                        "target-attribute-name": "title",
+                        "value": "${title}"
+                    },
+                    {
+                        "attribute-type": "scalar",
+                        "attribute-sub-type": "string",
+                        "target-attribute-name": "genres",
+                        "value": "${genres}"
+                    }
+                ],
+                "exclude-columns": [
+                    "movieId",
+                    "title",
+                    "genres"
+                ],
+                "partition-key-name": "movieId",
+                "sort-key-name": "genres"
+            }
+        },
+        {
+            "rule-action": "map-record-to-record",
+            "object-locator": {
+                "schema-name": "data",
+                "table-name": "links"
+            },
+            "target-table-name": "links_t",
+            "rule-name": "5",
+            "rule-type": "object-mapping",
+            "rule-id": "5",
+            "mapping-parameters": {
+                "attribute-mappings": [
+                    {
+                        "attribute-type": "scalar",
+                        "attribute-sub-type": "string",
+                        "target-attribute-name": "movieId",
+                        "value": "${movieId}"
+                    },
+                    {
+                        "attribute-type": "scalar",
+                        "attribute-sub-type": "string",
+                        "target-attribute-name": "imdbId",
+                        "value": "${imdbId}"
+                    },
+                    {
+                        "attribute-type": "scalar",
+                        "attribute-sub-type": "string",
+                        "target-attribute-name": "tmdbId",
+                        "value": "${tmdbId}"
+                    }
+                ],
+                "exclude-columns": [
+                    "movieId",
+                    "imdbId",
+                    "tmdbId"
+                ],
+                "partition-key-name": "movieId",
+                "sort-key-name": "imdbId"
+            }
+        }
+    ]
+}
